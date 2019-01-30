@@ -1,0 +1,43 @@
+{
+  "name": "tea-rest-helper-rest",
+  "version": "1.0.3",
+  "description": "a crud plugin for tea-rest ",
+  "main": "index.js",
+  "scripts": {
+    "test": "export NODE_ENV=test && istanbul cover ./node_modules/mocha/bin/_mocha ./test/*.js -- -R spec",
+    "lint": "eslint {./index.js,./lib,./test} && echo '\u001b[32m\u001b[1mEslint validate success.\u001b[22m\u001b[39m'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tea-node/tea-rest-helper-rest.git"
+  },
+  "keywords": [
+    "restapi",
+    "controller",
+    "helper",
+    "assistant",
+    "koa",
+    "tea-rest"
+  ],
+  "author": "baiyu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tea-node/tea-rest-helper-rest/issues"
+  },
+  "homepage": "https://github.com/tea-node/tea-rest-helper-rest#readme",
+  "devDependencies": {
+    "eslint": "^5.12.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "istanbul": "^1.0.0-alpha.2",
+    "mocha": "^5.2.0",
+    "tea-rest": "^1.1.7",
+    "tea-rest-plugin-mysql": "^1.0.3"
+  },
+  "dependencies": {
+    "async": "^2.6.1",
+    "func-delegate": "^0.3.1",
+    "lodash": "^4.17.11",
+    "mysql": "^2.16.0"
+  }
+}
