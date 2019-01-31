@@ -142,11 +142,11 @@ describe('tea-rest-helper-rest-modify', () => {
           id: 99,
           name: 'baiyu',
         },
+        set: (field, val) => {
+          assert.equal('X-Content-Resource-Status', field);
+          assert.equal('Unchanged', val);
+        },
         res: {
-          set: (field, val) => {
-            assert.equal('X-Content-Resource-Status', field);
-            assert.equal('Unchanged', val);
-          },
           ok: ({ data }) => {
             assert.equal(ctx.hooks.user, data);
             assert.equal(true, ctx._resourceNotChanged);
@@ -187,11 +187,11 @@ describe('tea-rest-helper-rest-modify', () => {
           id: 99,
           name: 'baiyu',
         },
+        set: (field, val) => {
+          assert.equal('X-Content-Resource-Status', field);
+          assert.equal('Unchanged', val);
+        },
         res: {
-          set: (field, val) => {
-            assert.equal('X-Content-Resource-Status', field);
-            assert.equal('Unchanged', val);
-          },
           sequelizeIfError: (error) => {
             assert.ok(error instanceof Error);
             assert.equal('Hello world', error.message);
@@ -224,11 +224,11 @@ describe('tea-rest-helper-rest-modify', () => {
             },
           },
         },
+        set: (field, val) => {
+          assert.equal('X-Content-Resource-Status', field);
+          assert.equal('Unchanged', val);
+        },
         res: {
-          set: (field, val) => {
-            assert.equal('X-Content-Resource-Status', field);
-            assert.equal('Unchanged', val);
-          },
           sequelizeIfError: (error) => {
             assert.ok(error instanceof Error);
             assert.equal('Has error when save', error.message);

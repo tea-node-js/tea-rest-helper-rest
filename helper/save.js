@@ -12,7 +12,7 @@ module.exports = () => {
       // 如果没有变化，则不需要保存，也不需要记录日志
       if (!changed) {
         ctx._resourceNotChanged = true;
-        ctx.res.set('X-Content-Resource-Status', 'Unchanged');
+        ctx.set('X-Content-Resource-Status', 'Unchanged');
         ctx.res.ok({
           data: model,
         });

@@ -85,11 +85,11 @@ describe('tea-rest-helper-rest-save', () => {
           id: 99,
           name: 'baiyu',
         },
+        set: (field, val) => {
+          assert.equal('X-Content-Resource-Status', field);
+          assert.equal('Unchanged', val);
+        },
         res: {
-          set: (field, val) => {
-            assert.equal('X-Content-Resource-Status', field);
-            assert.equal('Unchanged', val);
-          },
           ok: ({ data }) => {
             assert.equal(ctx.hooks.user, data);
             assert.equal(true, ctx._resourceNotChanged);

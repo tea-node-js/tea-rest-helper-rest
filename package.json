@@ -1,6 +1,6 @@
 {
   "name": "tea-rest-helper-rest",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "a crud plugin for tea-rest ",
   "main": "index.js",
   "scripts": {
