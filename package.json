@@ -1,6 +1,6 @@
 {
   "name": "tea-rest-helper-rest",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "a crud plugin for tea-rest ",
   "main": "index.js",
   "scripts": {
@@ -31,8 +31,8 @@
     "eslint-plugin-import": "^2.14.0",
     "istanbul": "^1.0.0-alpha.2",
     "mocha": "^5.2.0",
-    "tea-rest": "^1.1.7",
-    "tea-rest-plugin-mysql": "^1.0.3"
+    "tea-rest": "^1.1.8",
+    "tea-rest-plugin-mysql": "^1.0.5"
   },
   "dependencies": {
     "async": "^2.6.1",
