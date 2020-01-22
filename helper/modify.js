@@ -1,4 +1,4 @@
-const delegate = require('func-delegate');
+const validator = require('func-args-validator');
 const _ = require('lodash');
 const beforeModify = require('./before-modify');
 const save = require('./save');
@@ -57,5 +57,5 @@ module.exports = (rest) => {
     message: 'Allow modify attrs\'s name array',
   }];
 
-  return delegate(modify, schemas);
+  return validator(modify, schemas);
 };

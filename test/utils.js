@@ -6,7 +6,11 @@ const utils = require('../lib/utils');
 
 om(rest);
 const { Sequelize } = rest;
-const sequelize = new Sequelize();
+const sequelize = new Sequelize({
+  dialect: 'mysql',
+});
+
+const { Op } = Sequelize;
 
 /* global describe it */
 describe('utils', () => {
@@ -313,16 +317,18 @@ describe('utils', () => {
         age_gte: 20,
         age_lte: '30',
       };
+
       const where = {};
+
       utils.findOptFilter(params, 'name', where);
 
       assert.deepEqual(
         {
           name: {
-            $eq: 'hello',
-            $in: ['zhangsan', 'lisi', 'wangwu'],
-            $not: ['wangqi', 'houba'],
-            $ne: 'zhaoliu',
+            [Op.eq]: 'hello',
+            [Op.in]: ['zhangsan', 'lisi', 'wangwu'],
+            [Op.not]: ['wangqi', 'houba'],
+            [Op.ne]: 'zhaoliu',
           },
         },
         where,
@@ -332,14 +338,14 @@ describe('utils', () => {
       assert.deepEqual(
         {
           name: {
-            $eq: 'hello',
-            $in: ['zhangsan', 'lisi', 'wangwu'],
-            $not: ['wangqi', 'houba'],
-            $ne: 'zhaoliu',
+            [Op.eq]: 'hello',
+            [Op.in]: ['zhangsan', 'lisi', 'wangwu'],
+            [Op.not]: ['wangqi', 'houba'],
+            [Op.ne]: 'zhaoliu',
           },
           age: {
-            $gte: 20,
-            $lte: '30',
+            [Op.gte]: 20,
+            [Op.lte]: '30',
           },
         },
         where,
@@ -349,18 +355,18 @@ describe('utils', () => {
       assert.deepEqual(
         {
           name: {
-            $eq: 'hello',
-            $in: ['zhangsan', 'lisi', 'wangwu'],
-            $not: ['wangqi', 'houba'],
-            $ne: 'zhaoliu',
+            [Op.eq]: 'hello',
+            [Op.in]: ['zhangsan', 'lisi', 'wangwu'],
+            [Op.not]: ['wangqi', 'houba'],
+            [Op.ne]: 'zhaoliu',
           },
           age: {
-            $gte: 20,
-            $lte: '30',
+            [Op.gte]: 20,
+            [Op.lte]: '30',
           },
           address: {
-            $like: '北京%',
-            $notLike: '%昌平%',
+            [Op.like]: '北京%',
+            [Op.notLike]: '%昌平%',
           },
         },
         where,
@@ -382,7 +388,7 @@ describe('utils', () => {
       assert.deepEqual(
         {
           personName: {
-            $eq: null,
+            [Op.eq]: null,
           },
         },
         where,
@@ -392,10 +398,10 @@ describe('utils', () => {
       assert.deepEqual(
         {
           personName: {
-            $eq: null,
+            [Op.eq]: null,
           },
           personEmail: {
-            $ne: null,
+            [Op.ne]: null,
           },
         },
         where,
@@ -405,13 +411,13 @@ describe('utils', () => {
       assert.deepEqual(
         {
           personName: {
-            $eq: null,
+            [Op.eq]: null,
           },
           personEmail: {
-            $ne: null,
+            [Op.ne]: null,
           },
           age: {
-            $eq: 20,
+            [Op.eq]: 20,
           },
         },
         where,
@@ -421,16 +427,16 @@ describe('utils', () => {
       assert.deepEqual(
         {
           personName: {
-            $eq: null,
+            [Op.eq]: null,
           },
           personEmail: {
-            $ne: null,
+            [Op.ne]: null,
           },
           age: {
-            $eq: 20,
+            [Op.eq]: 20,
           },
           gender: {
-            $in: ['male', 'female'],
+            [Op.in]: ['male', 'female'],
           },
         },
         where,
@@ -440,19 +446,19 @@ describe('utils', () => {
       assert.deepEqual(
         {
           personName: {
-            $eq: null,
+            [Op.eq]: null,
           },
           personEmail: {
-            $ne: null,
+            [Op.ne]: null,
           },
           age: {
-            $eq: 20,
+            [Op.eq]: 20,
           },
           gender: {
-            $in: ['male', 'female'],
+            [Op.in]: ['male', 'female'],
           },
           address: {
-            $not: ['北七家', '天通苑'],
+            [Op.not]: ['北七家', '天通苑'],
           },
         },
         where,
@@ -463,22 +469,22 @@ describe('utils', () => {
       assert.deepEqual(
         {
           personName: {
-            $eq: null,
+            [Op.eq]: null,
           },
           personEmail: {
-            $ne: null,
+            [Op.ne]: null,
           },
           age: {
-            $eq: 20,
+            [Op.eq]: 20,
           },
           gender: {
-            $in: ['male', 'female'],
+            [Op.in]: ['male', 'female'],
           },
           address: {
-            $not: ['北七家', '天通苑'],
+            [Op.not]: ['北七家', '天通苑'],
           },
           parent: {
-            $like: '%@xiongfei.me',
+            [Op.like]: '%@xiongfei.me',
           },
         },
         where,
@@ -489,23 +495,23 @@ describe('utils', () => {
       assert.deepEqual(
         {
           personName: {
-            $eq: null,
+            [Op.eq]: null,
           },
           personEmail: {
-            $ne: null,
+            [Op.ne]: null,
           },
           age: {
-            $eq: 20,
+            [Op.eq]: 20,
           },
           gender: {
-            $in: ['male', 'female'],
+            [Op.in]: ['male', 'female'],
           },
           address: {
-            $not: ['北七家', '天通苑'],
+            [Op.not]: ['北七家', '天通苑'],
           },
           parent: {
-            $like: '%@xiongfei.me',
-            $ne: 'haha@xiongfei.me',
+            [Op.like]: '%@xiongfei.me',
+            [Op.ne]: 'haha@xiongfei.me',
           },
         },
         where,
@@ -516,26 +522,26 @@ describe('utils', () => {
       assert.deepEqual(
         {
           personName: {
-            $eq: null,
+            [Op.eq]: null,
           },
           personEmail: {
-            $ne: null,
+            [Op.ne]: null,
           },
           age: {
-            $eq: 20,
+            [Op.eq]: 20,
           },
           gender: {
-            $in: ['male', 'female'],
+            [Op.in]: ['male', 'female'],
           },
           address: {
-            $not: ['北七家', '天通苑'],
+            [Op.not]: ['北七家', '天通苑'],
           },
           parent: {
-            $like: '%@xiongfei.me',
-            $ne: 'haha@xiongfei.me',
+            [Op.like]: '%@xiongfei.me',
+            [Op.ne]: 'haha@xiongfei.me',
           },
           friend: {
-            $notLike: '%@qq.com',
+            [Op.notLike]: '%@qq.com',
           },
         },
         where,
@@ -556,17 +562,17 @@ describe('utils', () => {
       done();
     });
 
-    it('$eq where[col] already exists', (done) => {
+    it('[Op.eq] where[col] already exists', (done) => {
       const params = {
         name: 'zhaoxiongfei',
         age: 30,
       };
       const where = {
         name: {
-          $ne: 'StonePHP',
+          [Op.ne]: 'StonePHP',
         },
         age: {
-          $gte: 20,
+          [Op.gte]: 20,
         },
       };
       utils.findOptFilter(params, 'name', where);
@@ -574,12 +580,12 @@ describe('utils', () => {
       assert.deepEqual(
         {
           name: {
-            $ne: 'StonePHP',
-            $eq: 'zhaoxiongfei',
+            [Op.ne]: 'StonePHP',
+            [Op.eq]: 'zhaoxiongfei',
           },
           age: {
-            $gte: 20,
-            $eq: 30,
+            [Op.gte]: 20,
+            [Op.eq]: 30,
           },
         },
         where,
@@ -921,19 +927,18 @@ describe('utils', () => {
           values: ['yes', 'no'],
         },
       });
+
       let params = {
         showDelete: 'yes',
       };
 
       let opts = utils.findAllOpts(Model, params);
+
       assert.deepEqual(
-        {
-          include: undefined,
-          order: undefined,
-          offset: 0,
-          limit: 10,
-        },
         opts,
+        {
+          include: undefined, order: undefined, offset: 0, limit: 10,
+        },
       );
 
       params = {
@@ -941,20 +946,16 @@ describe('utils', () => {
       };
 
       opts = utils.findAllOpts(Model, params);
+
       assert.deepEqual(
+        opts,
         {
           include: undefined,
           order: undefined,
-          where: {
-            name: {
-              $eq: 'hi',
-            },
-            isDelete: 'no',
-          },
+          where: { name: { [Op.eq]: 'hi' }, isDelete: 'no' },
           offset: 0,
           limit: 10,
         },
-        opts,
       );
 
       done();
@@ -1020,10 +1021,12 @@ describe('utils', () => {
           values: ['yes', 'no'],
         },
       });
+
       Model.sort = {
         default: 'id',
-        allow: ['id', 'orderNum', 'name', 'mediaId', '', 'updatedAt'],
+        allow: ['id', 'orderNum', 'name', 'mediaId', 'updatedAt'],
       };
+
       Model.includes = {
         user: {
           model: Model,
@@ -1040,15 +1043,15 @@ describe('utils', () => {
       };
 
       const opts = utils.findAllOpts(Model, params);
-      const include = _.clone(Model.includes.user);
+
+      const include = _.cloneDeep(Model.includes.user);
+
       include.where = {
-        $or: [
-          {
-            isDelete: 'no',
-          },
-        ],
+        [Op.or]: [{ isDelete: 'no' }],
       };
+
       assert.deepEqual(
+        opts,
         {
           include: [include],
           order: [['id', 'DESC']],
@@ -1058,7 +1061,6 @@ describe('utils', () => {
           },
           limit: 10,
         },
-        opts,
       );
 
       done();
@@ -1101,7 +1103,7 @@ describe('utils', () => {
       const opts = utils.findAllOpts(Model, params);
       const include = _.clone(Model.includes.user);
       include.where = {
-        $or: [
+        [Op.or]: [
           {
             isDelete: 'no',
           },
@@ -1182,7 +1184,7 @@ describe('utils', () => {
       const opts = utils.findAllOpts(Model, params);
       const include = _.clone(Model.includes.user);
       include.where = {
-        $or: [
+        [Op.or]: [
           {
             isDelete: 'no',
           },
@@ -1200,7 +1202,7 @@ describe('utils', () => {
           limit: 10,
           where: {
             isDelete: 'no',
-            $or: [
+            [Op.or]: [
               [
                 [
                   "((((`book`.`name` LIKE '%a%'))",
@@ -1355,15 +1357,15 @@ describe('utils', () => {
           order: [['id', 'DESC']],
           where: {
             name: {
-              $or: [
+              [Op.or]: [
                 {
-                  $like: '%a',
+                  [Op.like]: '%a',
                 },
                 {
-                  $like: 'b%',
+                  [Op.like]: 'b%',
                 },
                 {
-                  $like: '%c%',
+                  [Op.like]: '%c%',
                 },
               ],
             },

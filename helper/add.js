@@ -1,4 +1,4 @@
-const delegate = require('func-delegate');
+const validator = require('func-args-validator');
 const _ = require('lodash');
 const beforeAdd = require('./before-add');
 const detailHelper = require('./detail');
@@ -78,5 +78,5 @@ module.exports = (rest) => {
     message: 'Attach other data dict. key => value, value is ctx\'s path',
   }];
 
-  return delegate(add, schemas);
+  return validator(add, schemas);
 };

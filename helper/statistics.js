@@ -1,4 +1,4 @@
-const delegate = require('func-delegate');
+const validator = require('func-args-validator');
 const _ = require('lodash');
 const statsModule = require('../lib/stats');
 
@@ -58,5 +58,5 @@ module.exports = (rest) => {
     message: 'Status dynamic config, ctx\'s value path',
   }];
 
-  return delegate(statistics, schemas);
+  return validator(statistics, schemas);
 };

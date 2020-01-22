@@ -1,4 +1,4 @@
-const delegate = require('func-delegate');
+const validator = require('func-args-validator');
 
 module.exports = () => {
   /**
@@ -38,5 +38,5 @@ module.exports = () => {
     message: 'Will modify instance hook on ctx.hooks[hook], so `hook` must be a string',
   }];
 
-  return delegate(save, schemas);
+  return validator(save, schemas);
 };

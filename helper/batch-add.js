@@ -1,5 +1,5 @@
 const util = require('util');
-const delegate = require('func-delegate');
+const validator = require('func-args-validator');
 const map = require('async/map');
 const _ = require('lodash');
 const U = require('../lib/utils');
@@ -151,5 +151,5 @@ module.exports = (rest) => {
     message: 'Sequelize create & bulkCreate the second argument',
   }];
 
-  return delegate(batchAdd, schemas);
+  return validator(batchAdd, schemas);
 };

@@ -6,7 +6,9 @@ const helper = require('../')(rest);
 
 om(rest);
 const { Sequelize } = rest;
-const sequelize = new Sequelize();
+const sequelize = new Sequelize({
+  dialect: 'mysql',
+});
 const Model = sequelize.define('book', {
   id: {
     type: Sequelize.INTEGER.UNSIGNED,

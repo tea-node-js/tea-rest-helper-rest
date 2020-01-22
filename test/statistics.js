@@ -4,9 +4,12 @@ const om = require('tea-rest-plugin-mysql');
 
 om(rest);
 const { Sequelize } = rest;
+const { Op } = Sequelize;
 const helper = require('../')(rest);
 
-const sequelize = new Sequelize();
+const sequelize = new Sequelize({
+  dialect: 'mysql',
+});
 const Model = sequelize.define('book', {
   id: {
     type: Sequelize.INTEGER.UNSIGNED,
@@ -83,6 +86,7 @@ describe('open-rest-helper-rest-statistics', () => {
         },
         name: Sequelize.STRING,
       });
+
       Model1.includes = {
         creator: {
           model: Model1,
@@ -90,6 +94,7 @@ describe('open-rest-helper-rest-statistics', () => {
           required: true,
         },
       };
+
       Model1.stats = {
         dimensions: {
           user: '`creatorId`',
@@ -103,6 +108,7 @@ describe('open-rest-helper-rest-statistics', () => {
           maxStartIndex: 50000,
         },
       };
+
       Model1.findAll = (options) => {
         const expect = {
           attributes: [
@@ -111,8 +117,8 @@ describe('open-rest-helper-rest-statistics', () => {
             'COUNT(*) AS `count`',
           ],
           where: {
-            $and: [
-              { id: { $gte: 200 } },
+            [Op.and]: [
+              { id: { [Op.gte]: 200 } },
               [
                 "`isDelete`='no'",
                 [
@@ -135,7 +141,9 @@ describe('open-rest-helper-rest-statistics', () => {
           }],
           raw: true,
         };
+
         assert.deepEqual(expect, options);
+
         return new Promise((resolve) => {
           setTimeout(() => {
             resolve([{
@@ -150,11 +158,12 @@ describe('open-rest-helper-rest-statistics', () => {
           }, 50);
         });
       };
+
       Model1.findOne = (options) => {
         assert.deepEqual({
           where: {
-            $and: [
-              { id: { $gte: 200 } },
+            [Op.and]: [
+              { id: { [Op.gte]: 200 } },
               [
                 "`isDelete`='no'",
                 [
@@ -174,12 +183,15 @@ describe('open-rest-helper-rest-statistics', () => {
             'COUNT(DISTINCT Date(`createdAt`), `creatorId`) AS `count`',
           ],
         }, options);
+
+
         return new Promise((resolve) => {
           setTimeout(() => {
             resolve({ count: 20 });
           }, 50);
         });
       };
+
       const ctx = {
         params: {
           dimensions: 'date,user',
@@ -214,10 +226,16 @@ describe('open-rest-helper-rest-statistics', () => {
             }], data);
             done();
           },
+          sequelizeIfError: (error) => {
+            assert.ok(error instanceof Error);
+            assert.equal('This is a test error message', error.message);
+            done();
+          },
         },
       };
 
       const statistics = helper.statistics(Model1, 'hooks.opt.where', null, 'hooks.conf');
+
       statistics(ctx, next);
     });
 
@@ -258,8 +276,8 @@ describe('open-rest-helper-rest-statistics', () => {
             'COUNT(*) AS `count`',
           ],
           where: {
-            $and: [
-              { id: { $gte: 200 } },
+            [Op.and]: [
+              { id: { [Op.gte]: 200 } },
               [
                 "`isDelete`='no'",
                 [
@@ -299,8 +317,8 @@ describe('open-rest-helper-rest-statistics', () => {
       Model1.findOne = (options) => {
         assert.deepEqual({
           where: {
-            $and: [
-              { id: { $gte: 200 } },
+            [Op.and]: [
+              { id: { [Op.gte]: 200 } },
               [
                 "`isDelete`='no'",
                 [
@@ -408,8 +426,8 @@ describe('open-rest-helper-rest-statistics', () => {
             'COUNT(*) AS `count`',
           ],
           where: {
-            $and: [
-              { id: { $gte: 200 } },
+            [Op.and]: [
+              { id: { [Op.gte]: 200 } },
               [
                 "`isDelete`='no'",
                 [
@@ -450,8 +468,8 @@ describe('open-rest-helper-rest-statistics', () => {
       Model1.findOne = (options) => {
         assert.deepEqual({
           where: {
-            $and: [
-              { id: { $gte: 200 } },
+            [Op.and]: [
+              { id: { [Op.gte]: 200 } },
               [
                 "`isDelete`='no'",
                 [
@@ -557,8 +575,8 @@ describe('open-rest-helper-rest-statistics', () => {
             'COUNT(*) AS `count`',
           ],
           where: {
-            $and: [
-              { id: { $gte: 200 } },
+            [Op.and]: [
+              { id: { [Op.gte]: 200 } },
             ],
           },
           group: [
@@ -584,8 +602,8 @@ describe('open-rest-helper-rest-statistics', () => {
       Model1.findOne = (options) => {
         assert.deepEqual({
           where: {
-            $and: [
-              { id: { $gte: 200 } },
+            [Op.and]: [
+              { id: { [Op.gte]: 200 } },
             ],
           },
           raw: true,

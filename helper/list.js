@@ -1,4 +1,4 @@
-const delegate = require('func-delegate');
+const validator = require('func-args-validator');
 const _ = require('lodash');
 const U = require('../lib/utils');
 
@@ -105,5 +105,5 @@ module.exports = (rest) => {
     message: 'Geted list will hook on req.hooks[hook], so `hook` must be a string',
   }];
 
-  return delegate(list, schemas);
+  return validator(list, schemas);
 };

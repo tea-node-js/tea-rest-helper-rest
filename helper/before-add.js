@@ -1,4 +1,4 @@
-const delegate = require('func-delegate');
+const validator = require('func-args-validator');
 const _ = require('lodash');
 const U = require('../lib/utils');
 
@@ -83,5 +83,5 @@ module.exports = (rest) => {
     message: 'Allow writed attrs\'s name array',
   }];
 
-  return delegate(beforeAdd, schemas);
+  return validator(beforeAdd, schemas);
 };

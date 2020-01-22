@@ -1,4 +1,4 @@
-const delegate = require('func-delegate');
+const validator = require('func-args-validator');
 const _ = require('lodash');
 const U = require('../lib/utils');
 
@@ -75,5 +75,5 @@ module.exports = () => {
     message: 'Whether to allow filtering properties, defaultValue is true',
   }];
 
-  return delegate(detail, schemas);
+  return validator(detail, schemas);
 };

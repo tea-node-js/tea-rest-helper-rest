@@ -5,7 +5,11 @@ require('tea-rest-plugin-mysql')(rest);
 const { Sequelize } = rest;
 const stats = require('../lib/stats')(rest);
 
-const sequelize = new Sequelize();
+const sequelize = new Sequelize({
+  dialect: 'mysql',
+});
+
+const { Op } = Sequelize;
 
 /* global describe it */
 describe('stats', () => {
@@ -715,7 +719,7 @@ describe('stats', () => {
             'COUNT(*) AS `count`',
           ],
           where: {
-            $and: [
+            [Op.and]: [
               { id: { $gte: 200 } },
               [
                 "`isDelete`='no'",
@@ -757,7 +761,7 @@ describe('stats', () => {
       Model.findOne = (options) => {
         assert.deepEqual({
           where: {
-            $and: [
+            [Op.and]: [
               { id: { $gte: 200 } },
               [
                 "`isDelete`='no'",
@@ -943,7 +947,7 @@ describe('stats', () => {
           offset: 0,
           limit: 20,
           where: {
-            $and: [
+            [Op.and]: [
               [
                 {
                   $or: [
@@ -1023,7 +1027,7 @@ describe('stats', () => {
             '`user`',
           ],
           where: {
-            $and: [
+            [Op.and]: [
               { id: { $eq: 200 } },
             ],
           },
@@ -1050,7 +1054,7 @@ describe('stats', () => {
         assert.deepEqual({
           raw: true,
           where: {
-            $and: [
+            [Op.and]: [
               { id: { $eq: 200 } },
             ],
           },
@@ -1122,7 +1126,7 @@ describe('stats', () => {
         assert.deepEqual({
           raw: true,
           where: {
-            $and: [
+            [Op.and]: [
               { id: { $eq: 200 } },
             ],
           },
@@ -1186,7 +1190,7 @@ describe('stats', () => {
         assert.deepEqual({
           raw: true,
           where: {
-            $and: [
+            [Op.and]: [
               { id: { $eq: 200 } },
             ],
           },

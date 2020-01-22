@@ -1,4 +1,4 @@
-const delegate = require('func-delegate');
+const validator = require('func-args-validator');
 
 const deleteFields = ['isDelete', 'deletorId', 'deletedAt'];
 
@@ -28,5 +28,5 @@ module.exports = () => {
     message: 'Remove instance hook on req.hooks[hook], so `hook` must be a string',
   }];
 
-  return delegate(remove, schemas);
+  return validator(remove, schemas);
 };
