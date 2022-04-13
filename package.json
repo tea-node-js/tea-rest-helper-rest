@@ -35,7 +35,7 @@
     "tea-rest-plugin-mysql": "^1.1.0"
   },
   "dependencies": {
-    "async": "^2.6.1",
+    "async": "^3.2.2",
     "func-args-validator": "^0.1.1",
     "lodash": "^4.17.11",
     "mysql": "^2.16.0",
